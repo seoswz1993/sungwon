@@ -1,0 +1,315 @@
+:root {
+    --bg: #f3f1ec;
+    --text: #101010;
+    --muted: #a7a29a;
+    --line: rgba(16, 16, 16, 0.18);
+    --panel: #ece8e0;
+    --accent: #141414;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 36%),
+        linear-gradient(180deg, #f5f3ee 0%, #ece7de 100%);
+    color: var(--text);
+    font-family: "Manrope", sans-serif;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.page-shell {
+    display: grid;
+    grid-template-columns: 380px minmax(0, 1fr);
+}
+
+.sidebar {
+    position: relative;
+    border-right: 1px solid var(--line);
+}
+
+.sidebar-inner {
+    position: sticky;
+    top: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    padding: 34px 28px 34px 34px;
+}
+
+.brand {
+    margin: 0 0 44px;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
+.trip-nav {
+    display: grid;
+    gap: 18px;
+}
+
+.trip-link {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: baseline;
+    color: var(--muted);
+    transition: color 180ms ease, transform 180ms ease;
+}
+
+.trip-link:hover,
+.trip-link.is-active {
+    color: var(--accent);
+    transform: translateX(8px);
+}
+
+.trip-number {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+}
+
+.trip-label {
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.content {
+    padding: 26px 34px 0;
+}
+
+.hero {
+    display: grid;
+    gap: 16px;
+    min-height: 92vh;
+    align-content: start;
+    padding: 26px 0 54px;
+}
+
+.hero-kicker {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero h1,
+.trip-copy h2,
+.contact-panel {
+    letter-spacing: -0.08em;
+}
+
+.hero h1 {
+    margin: 0;
+    max-width: 7ch;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.88;
+    text-transform: uppercase;
+}
+
+.hero-copy {
+    margin: 0;
+    max-width: 460px;
+    color: rgba(16, 16, 16, 0.7);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.trip-panel {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.6fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px 0;
+}
+
+.trip-copy {
+    align-self: start;
+    position: sticky;
+    top: 36px;
+}
+
+.panel-number,
+.panel-year {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.panel-number {
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+}
+
+.trip-copy h2 {
+    margin: 10px 0 0;
+    font-size: clamp(3.8rem, 8vw, 8rem);
+    line-height: 0.88;
+    text-transform: uppercase;
+}
+
+.panel-year {
+    margin-top: 14px;
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
+}
+
+.trip-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 76vh;
+    border-radius: 28px;
+    background: var(--panel);
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.08);
+}
+
+.trip-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.08) 100%);
+    pointer-events: none;
+}
+
+.trip-image img {
+    height: 100%;
+    min-height: 76vh;
+    object-fit: cover;
+    filter: saturate(0.92) contrast(1.04);
+}
+
+.contact-panel {
+    display: grid;
+    gap: 8px;
+    padding: 12vh 0 14vh;
+    border-top: 1px solid var(--line);
+    font-size: clamp(2.2rem, 5vw, 4.6rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
+.contact-label {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.contact-panel a {
+    width: fit-content;
+    transition: opacity 180ms ease;
+}
+
+.contact-panel a:hover {
+    opacity: 0.58;
+}
+
+@media (max-width: 1080px) {
+    .page-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .sidebar-inner {
+        position: relative;
+        min-height: auto;
+        padding-bottom: 28px;
+    }
+
+    .content {
+        padding-top: 20px;
+    }
+
+    .trip-panel {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 34px 0 72px;
+    }
+
+    .trip-copy {
+        position: relative;
+        top: auto;
+    }
+
+    .trip-image,
+    .trip-image img {
+        min-height: 58vh;
+    }
+}
+
+@media (max-width: 640px) {
+    .sidebar-inner,
+    .content {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .brand {
+        margin-bottom: 28px;
+        font-size: 1.45rem;
+    }
+
+    .trip-link {
+        grid-template-columns: 42px 1fr;
+    }
+
+    .trip-number {
+        font-size: 1.45rem;
+    }
+
+    .trip-label {
+        font-size: 0.95rem;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 10px 0 48px;
+    }
+
+    .hero h1 {
+        font-size: clamp(3rem, 20vw, 4.9rem);
+    }
+
+    .trip-copy h2 {
+        font-size: clamp(2.9rem, 19vw, 4.8rem);
+    }
+
+    .trip-image,
+    .trip-image img {
+        min-height: 46vh;
+        border-radius: 20px;
+    }
+
+    .contact-panel {
+        font-size: clamp(1.6rem, 9vw, 2.4rem);
+    }
+}
