@@ -3,8 +3,10 @@ const panelOverlay = document.getElementById("panelOverlay");
 const sidePanel = document.getElementById("sidePanel");
 const panelContent = document.getElementById("panelContent");
 const closePanelButton = document.getElementById("closePanelButton");
+const mobileMedia = window.matchMedia("(max-width: 900px)");
 
 const textCache = {};
+let isTicking = false;
 
 const panelData = {
     "01": { type: "message", title: "01", message: "Lost memories..." },
@@ -41,7 +43,6 @@ const createMessageMarkup = (title, message) => `
 const createGalleryMarkup = (title, intro, entries) => {
     const entriesMarkup = entries.map((entry) => `
         <article class="panel-entry">
-            <p class="entry-label">${entry.label}</p>
             <img src="${entry.image}" alt="${title} ${entry.label}">
             <p class="entry-text">${entry.text}</p>
         </article>
@@ -160,6 +161,45 @@ const closePanel = () => {
     document.body.classList.remove("panel-open");
 };
 
+const updateCylinderScroll = () => {
+    const isMobile = mobileMedia.matches;
+
+    tripButtons.forEach((button) => {
+        if (!isMobile) {
+            button.style.removeProperty("--mobile-scale");
+            button.style.removeProperty("--mobile-opacity");
+            button.style.removeProperty("--mobile-z");
+            return;
+        }
+
+        const rect = button.getBoundingClientRect();
+        const itemCenter = rect.top + rect.height / 2;
+        const viewportCenter = window.innerHeight / 2;
+        const distance = Math.abs(viewportCenter - itemCenter);
+        const normalized = Math.min(distance / (window.innerHeight * 0.48), 1);
+        const scale = 0.78 + (1 - normalized) * 0.22;
+        const opacity = 0.28 + (1 - normalized) * 0.72;
+        const zIndex = Math.round((1 - normalized) * 100);
+
+        button.style.setProperty("--mobile-scale", scale.toFixed(3));
+        button.style.setProperty("--mobile-opacity", opacity.toFixed(3));
+        button.style.setProperty("--mobile-z", String(zIndex));
+    });
+};
+
+const handleMobileScroll = () => {
+    if (isTicking) {
+        return;
+    }
+
+    isTicking = true;
+
+    window.requestAnimationFrame(() => {
+        updateCylinderScroll();
+        isTicking = false;
+    });
+};
+
 tripButtons.forEach((button) => {
     button.addEventListener("click", () => {
         openPanel(button.dataset.trip);
@@ -179,3 +219,9 @@ document.addEventListener("keydown", (event) => {
         closePanel();
     }
 });
+
+window.addEventListener("scroll", handleMobileScroll, { passive: true });
+window.addEventListener("resize", handleMobileScroll);
+mobileMedia.addEventListener("change", handleMobileScroll);
+
+updateCylinderScroll();
