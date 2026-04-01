@@ -41,6 +41,7 @@ img {
 
 .page {
     position: relative;
+    z-index: 1;
     padding: 20px 32px 48px;
 }
 
@@ -189,6 +190,10 @@ body.panel-open .trip-list {
     pointer-events: none;
 }
 
+body.panel-open .page {
+    z-index: 0;
+}
+
 .contact-block {
     display: grid;
     gap: 6px;
@@ -216,11 +221,12 @@ body.panel-open .trip-list {
 .panel-overlay {
     position: fixed;
     inset: 0;
-    z-index: 40;
+    z-index: 9998;
     background: rgba(0, 0, 0, 0.04);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+    isolation: isolate;
 }
 
 .panel-overlay.is-open {
@@ -232,6 +238,7 @@ body.panel-open .trip-list {
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 9999;
     width: 50vw;
     height: 100vh;
     padding: 64px 24px 24px;
@@ -420,6 +427,12 @@ body.panel-open .trip-list {
         opacity: var(--mobile-opacity, 1);
         transform: scale(var(--mobile-scale, 1));
         z-index: var(--mobile-z, 1);
+    }
+
+    body.panel-open .container {
+        transform: none;
+        opacity: 1;
+        z-index: 1;
     }
 
     .number,
